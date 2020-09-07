@@ -25,6 +25,7 @@ public class Client implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String name;
 	private String email;
 	private String registryId;
@@ -37,6 +38,9 @@ public class Client implements Serializable{
 	@ElementCollection
 	@CollectionTable(name="PHONE")
 	private Set<String> phones = new HashSet<>();
+	
+	@OneToMany(mappedBy = "client")
+	private List<OrderMain> orders = new ArrayList<>();
 	
 	public Client() {
 		
@@ -86,6 +90,33 @@ public class Client implements Serializable{
 	public ClientType getType() {
 		return ClientType.toEnum(this.type);
 	}
+	public void setType(ClientType type) {
+		this.type = type.getId();
+	}
+
+	public List<Adress> getAdresses() {
+		return adresses;
+	}
+
+	public void setAdresses(List<Adress> adresses) {
+		this.adresses = adresses;
+	}
+
+	public Set<String> getPhones() {
+		return phones;
+	}
+
+	public void setPhones(Set<String> phones) {
+		this.phones = phones;
+	}
+
+	public List<OrderMain> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<OrderMain> orders) {
+		this.orders = orders;
+	}
 
 	@Override
 	public int hashCode() {
@@ -112,25 +143,7 @@ public class Client implements Serializable{
 		return true;
 	}
 
-	public void setType(ClientType type) {
-		this.type = type.getId();
-	}
-
-	public List<Adress> getAdresses() {
-		return adresses;
-	}
-
-	public void setAdresses(List<Adress> adresses) {
-		this.adresses = adresses;
-	}
-
-	public Set<String> getPhones() {
-		return phones;
-	}
-
-	public void setPhones(Set<String> phones) {
-		this.phones = phones;
-	}
+	
 		
 	
 }
