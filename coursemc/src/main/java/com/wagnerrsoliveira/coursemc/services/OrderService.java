@@ -15,7 +15,7 @@ public class OrderService {
 	@Autowired
 	private OrderRepository repository;
 	
-	public OrderMain search(Integer id) {
+	public OrderMain find(Integer id) {
 		Optional<OrderMain> orders = repository.findById(id);
 		return orders.orElseThrow(()-> new ObjectNotFoundException("Object not found! id: "+id+" Type: "+OrderMain.class.getName()));
 	}
