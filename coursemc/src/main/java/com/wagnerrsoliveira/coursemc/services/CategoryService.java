@@ -1,5 +1,6 @@
 package com.wagnerrsoliveira.coursemc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class CategoryService {
 	private CategoryRepository repository;
 	
 	public Category find(Integer id) {
-		Optional<Category> categoria = repository.findById(id);
-		return categoria.orElseThrow(()-> new ObjectNotFoundException("Object not found! id: "+id+" Type: "+Category.class.getName()));
+		Optional<Category> categories = repository.findById(id);
+		return categories.orElseThrow(()-> new ObjectNotFoundException("Object not found! id: "+id+" Type: "+Category.class.getName()));
 	}
 	
 	public Category insert(Category category) {
@@ -39,5 +40,9 @@ public class CategoryService {
 		}catch(DataIntegrityViolationException exception) {
 			throw new DataIntegrityException("it is not possible to exclude a category that has products.");
 		}
+	}
+	
+	public List<Category> findAll() {		
+		return repository.findAll();
 	}
 }
