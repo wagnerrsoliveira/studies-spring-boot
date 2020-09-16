@@ -70,7 +70,12 @@ public class CoursemcApplication implements CommandLineRunner {
 
 		Category category1 = new Category(null, "Computing");
 		Category category2 = new Category(null, "Office");
-
+		Category category3 = new Category(null, "Bed & bath");
+		Category category4 = new Category(null, "Electronics");
+		Category category5 = new Category(null, "Gardening");
+		Category category6 = new Category(null, "Decoration");
+		Category category7 = new Category(null, "Perfumery");
+		
 		Product product1 = new Product(null, "Computer", 2000.00);
 		Product product2 = new Product(null, "Printer", 800.00);
 		Product product3 = new Product(null, "Mouse", 80.00);
@@ -82,7 +87,7 @@ public class CoursemcApplication implements CommandLineRunner {
 		product2.getCategories().addAll(Arrays.asList(category1, category2));
 		product3.getCategories().addAll(Arrays.asList(category1));
 
-		categoryRepository.saveAll(Arrays.asList(category1, category2));
+		categoryRepository.saveAll(Arrays.asList(category1, category2,category3,category4,category5,category6,category7));
 		productRepository.saveAll(Arrays.asList(product1, product2, product3));
 
 		State state1 = new State(null, "Minas Gerais");
