@@ -18,32 +18,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wagnerrsoliveira.coursemc.domain.enums.ClientType;
 
 @Entity
-public class Client implements Serializable{
+public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String name;
 	private String email;
 	private String registryId;
 	private Integer type;
-	
+
 	@OneToMany(mappedBy = "client")
 	private List<Adress> adresses = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name="PHONE")
+	@CollectionTable(name = "PHONE")
 	private Set<String> phones = new HashSet<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<OrderMain> orders = new ArrayList<>();
-	
+
 	public Client() {
-		
+
 	}
 
 	public Client(Integer id, String name, String email, String registryId, ClientType type) {
@@ -52,7 +52,7 @@ public class Client implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.registryId = registryId;
-		this.type = type.getId();
+		this.type = type == null ? null : type.getId();
 	}
 
 	public Integer getId() {
@@ -90,6 +90,7 @@ public class Client implements Serializable{
 	public ClientType getType() {
 		return ClientType.toEnum(this.type);
 	}
+
 	public void setType(ClientType type) {
 		this.type = type.getId();
 	}
@@ -143,7 +144,4 @@ public class Client implements Serializable{
 		return true;
 	}
 
-	
-		
-	
 }
