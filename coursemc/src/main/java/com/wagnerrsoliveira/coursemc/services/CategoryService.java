@@ -33,8 +33,13 @@ public class CategoryService {
 	}
 	
 	public Category update(Category category) {
-		find(category.getId());
-		return repository.save(category);
+		Category newCategory = find(category.getId());
+		updateData(newCategory, category);
+		return repository.save(newCategory);
+	}
+	
+	private void updateData(Category newCategory, Category category) {
+		newCategory.setName(category.getName());
 	}
 	
 	public void delete(Integer id) {

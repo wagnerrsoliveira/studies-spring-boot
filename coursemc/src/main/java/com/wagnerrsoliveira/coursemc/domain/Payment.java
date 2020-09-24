@@ -15,27 +15,27 @@ import com.wagnerrsoliveira.coursemc.domain.enums.PaymentStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Payment implements Serializable{
+public abstract class Payment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Integer id;
-	private Integer status; 
-	
+	private Integer status;
+
 	@JsonIgnore
 	@OneToOne
-	@JoinColumn(name="order_id")
+	@JoinColumn(name = "order_id")
 	@MapsId
 	private OrderMain order;
-	
-	public Payment() {		
+
+	public Payment() {
 	}
 
 	public Payment(Integer id, PaymentStatus status, OrderMain order) {
 		super();
 		this.id = id;
-		this.status = status.getId();
+		this.status = status == null ? null : status.getId();
 		this.order = order;
 	}
 
@@ -86,6 +86,6 @@ public abstract class Payment implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-	
+	}
+
 }
