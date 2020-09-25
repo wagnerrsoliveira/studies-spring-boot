@@ -1,5 +1,6 @@
 package com.wagnerrsoliveira.coursemc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.wagnerrsoliveira.coursemc.domain.Client;
 import com.wagnerrsoliveira.coursemc.dtos.ClientDTO;
+import com.wagnerrsoliveira.coursemc.dtos.ClientNewDTO;
 import com.wagnerrsoliveira.coursemc.services.ClientService;
 
 @RestController
@@ -33,6 +36,19 @@ public class ClientResource {
 		
 		return ResponseEntity.ok().body(client);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDTO clientNewDTO){
+		Client client = service.fromDTO(clientNewDTO);
+		client = service.insert(client);
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(client.getId())
+				.toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
 	
 
 	@RequestMapping(value="/{id}",method = RequestMethod.PUT)

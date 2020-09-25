@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wagnerrsoliveira.coursemc.domain.Category;
 import com.wagnerrsoliveira.coursemc.dtos.CategoryDTO;
@@ -27,6 +28,7 @@ public class CategoryService {
 		return categories.orElseThrow(()-> new ObjectNotFoundException("Object not found! id: "+id+" Type: "+Category.class.getName()));
 	}
 	
+	@Transactional
 	public Category insert(Category category) {
 		category.setId(null);
 		return repository.save(category);
