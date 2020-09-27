@@ -2,21 +2,44 @@ package com.wagnerrsoliveira.coursemc.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.wagnerrsoliveira.coursemc.services.validations.ClientInsert;
+
+@ClientInsert
 public class ClientNewDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message = "Required fill")
+	@Length(min =5  ,max=120,message = "The length must have between 5 and 120 char")
 	private String name;
+	
+	@NotEmpty(message = "Required fill")
+	@Email(message = "Invalid email")
 	private String email;
+	
+	@NotEmpty(message = "Required fill")
 	private String registryId;
+	
 	private Integer type;
 	
+	@NotEmpty(message = "Required fill")
 	private String description;
+	
+	@NotEmpty(message = "Required fill")
 	private String number;
+	
 	private String complement;
 	private String neighborhood;
+	
+	@NotEmpty(message = "Required fill")
 	private String zipCode;
 	
+	@NotEmpty(message = "Required fill")
 	private String phone1;
 	private String phone2;
 	private String phone3;
